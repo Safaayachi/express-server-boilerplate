@@ -1,10 +1,11 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const postRoutes = require("./routes/postRoutes");
+const users = require("./routes/userRoutes");
 const logger = require("./middleware/logger");
+const connectDB = require("./config/database");
 
 dotenv.config();
-
+connectDB();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,7 +14,7 @@ app.use(express.json()); // Parse JSON bodies
 app.use(logger); // Custom logging middleware
 
 // Routes
-app.use("/api/posts", postRoutes);
+app.use("/api/users", users);
 
 // 404 Handler
 app.use((req, res) => {
